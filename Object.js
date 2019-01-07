@@ -1,0 +1,1 @@
+alert("this is my first 3d object so please upvote it");

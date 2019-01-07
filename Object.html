@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>My first 3d object</title>
+        <link ref = "stylesheet" type = "text/css" href="Object.css">
+        <script src ="Object.js"> </script>
+    </head>
+    <body>
+    <canvas id="canvas"></canvas>
+        <script src = "https://threejs.org/build/three.js"></script>
+        <script>
+        // create a scene
+        var scene = new THREE.Scene();
+
+        //create a camera to see 
+        var camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, 1000);
+        
+        //Ambient Light Source which add to the scene
+        var light = new THREE.AmbientLight(0xFF0000, 0.6);
+        scene.add(light);
+        
+        //Point Light source on origin 
+        var light1 = new THREE.PointLight(0xFFFFFF, 0.6);
+        scene.add(light1);
+
+        //create a canvas renderer and set its size 
+        var renderer = new THREE.WebGLRenderer({canvas: document.getElementById('canvas'), antialias: true});
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        
+        // create the shape
+        var geometry = new THREE.IcosahedronGeometry(1, 0);
+
+        //Material to cover the shape
+        var material = new THREE.MeshLambertMaterial({color:0xFFFFFF});
+
+        //attach geometry and material
+        var shape = new THREE.Mesh(geometry, material);
+        //add the shape to the scene
+        scene.add(shape);
+        
+        //change the position from (0,0,0) to (0,0,-10)
+        shape.position.set(0,0,-10);
+        //camera.position.z = 5;
+
+        //function for rotating and rendering the shape
+        function animate(){
+            requestAnimationFrame(animate);
+            shape.rotation.x += 0.01;
+            shape.rotation.y += 0.01;
+            shape.rotation.z += 0.01;
+            renderer.render(scene, camera);
+        }
+        animate();
+    </script>
+    </body>
+    </html>
